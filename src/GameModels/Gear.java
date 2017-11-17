@@ -1,4 +1,4 @@
-package GameInfo;
+package GameModels;
 
 public class Gear extends Treasure {
     public Gear(String _title, String _description, int _bonus) {

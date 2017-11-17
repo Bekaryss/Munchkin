@@ -1,4 +1,4 @@
-package GameInfo;
+package GameModels;
 
 public class Door extends Card {
 

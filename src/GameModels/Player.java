@@ -1,4 +1,4 @@
-package GameInfo;
+package GameModels;
 
 import java.util.List;
 

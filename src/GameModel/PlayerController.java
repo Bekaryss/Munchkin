@@ -1,9 +1,9 @@
 package GameModel;
 
-import GameInfo.Buff;
-import GameInfo.Card;
-import GameInfo.Gear;
-import GameInfo.Treasure;
+import GameInfo.PlayerInfo;
+import GameModels.Card;
+import GameModels.Gear;
+import GameModels.Treasure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,8 @@ public class PlayerController {
     private int bonus;
     private int power;
     public boolean isActive;
+    public ArrayList<Treasure> VisibleCards = new ArrayList<Treasure>();
+    public ArrayList<Treasure> HiddenCards = new ArrayList<Treasure>();
 
     public boolean isActive() {
         return isActive;
@@ -86,15 +88,10 @@ public class PlayerController {
         HiddenCards = hiddenCards;
     }
 
-    public ArrayList<Treasure> VisibleCards;
-    public ArrayList<Treasure> HiddenCards;
-
-
-
 
 
     public void AddVisibleCard(Gear card) {
-        bonus = bonus + card.getBonus();
+        setBonus(bonus + card.getBonus());
         VisibleCards.add(card);
     }
 
@@ -124,20 +121,20 @@ public class PlayerController {
         RemoveHiddenCard(card);
     }
 
-    public void GetInfo(){
-        System.out.println("Player: " + nickName);
-        System.out.println("Level: " + level);
-        System.out.println("Bonus: " + bonus);
-        System.out.println("Power: " + power);
-        System.out.println("Visible Cards: ");
-        for(int i = 0; i < VisibleCards.size(); i++){
-            VisibleCards.get(i).GetInfo();
+    public PlayerInfo UpdateData(){
+        PlayerInfo pl = new PlayerInfo();
+        pl.id = id;
+        pl.nickName = nickName;
+        pl.level = level;
+        pl.power = power;
+        pl.bonus = bonus;
+        pl.isActive = isActive;
+        for (int i=0; i<VisibleCards.size(); i++){
+            pl.visibleCards.add(VisibleCards.get(i).UpdataData());
         }
-        System.out.println("Hidden Cards: ");
-        for(int i = 0; i < HiddenCards.size(); i++){
-            HiddenCards.get(i).GetInfo();
+        for (int i=0; i<HiddenCards.size(); i++){
+            pl.hiddenCards.add(HiddenCards.get(i).UpdataData());
         }
+        return pl;
     }
-
-
 }
