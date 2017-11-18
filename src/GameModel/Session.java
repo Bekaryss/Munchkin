@@ -17,6 +17,7 @@ public class Session {
     public Stack<Door> closeDoors;
     public Stack<Treasure> treasures;
     public Door openedDoor;
+    public int curPlayerNumber = 0;
 
     public Door getOpenedDoor() {
         return openedDoor;
@@ -119,7 +120,9 @@ public class Session {
             return true;
         }else{
             int pLevel = currentPlayer.getLevel();
-            pLevel--;
+            if(pLevel > 1){
+                pLevel--;
+            }
             currentPlayer.setLevel(pLevel);
             return false;
         }
@@ -137,6 +140,7 @@ public class Session {
         if(Iteration >= Players.size()){
             Iteration = 0;
         }
+        openedDoor = null;
     }
 
     public SessionInfo UpdateData(){

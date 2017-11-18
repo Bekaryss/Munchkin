@@ -13,11 +13,14 @@ public class Main {
         SessionInfo sf = s.UpdateData();
         sf.GetInfo();
         s.StartGame();
-        sf = s.UpdateData();
-        sf.GetInfo();
-        s.setCurrentPlayer(s.Players.get(0));
-        sf = s.UpdateData();
-        sf.currentPlayer.GetInfo();
+        s.setCurrentPlayer(s.Players.get(s.curPlayerNumber));
+        game.Game(1);
+//        s.StartGame();
+//        sf = s.UpdateData();
+//        sf.GetInfo();
+//        s.setCurrentPlayer(s.Players.get(0));
+//        sf = s.UpdateData();
+//        sf.currentPlayer.GetInfo();
 //        while (sf.GameStatus == true){
 //
 //        }

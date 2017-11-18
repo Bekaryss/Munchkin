@@ -12,6 +12,11 @@ public class GameProcess {
         return session;
     }
 
+    public void AddPlayer(PlayerController player, int id){
+        Session session = GetSession(id);
+        session.AddPlayer(player);
+    }
+
     public Session GetSession(int id){
         for (int i=0; i<sessions.size(); i++){
             if(sessions.get(i).id == id){
