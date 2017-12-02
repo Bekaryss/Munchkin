@@ -81,16 +81,19 @@ public class PlayerInfo {
     }
 
     public void GetInfo(){
-        System.out.println("######## Player ###################");
-        System.out.println("Player: " + nickName + " " +"Level: " + level );
-        System.out.println("Bonus: " + bonus + " " + "Power: " + power);
-        System.out.println("Visible Cards: ");
+        System.out.println("######## Player " + id + " ########");
+        System.out.println("# Player: " + nickName + " " +"Level: " + level );
+        System.out.println("# Bonus: " + bonus + " " + "Power: " + power);
+        System.out.println("# Visible Cards: ");
         for(int i = 0; i < visibleCards.size(); i++){
             visibleCards.get(i).GetInfo();
         }
-        System.out.println("Hidden Cards: ");
+        System.out.println("# Hidden Cards: ");
         for(int i = 0; i < hiddenCards.size(); i++){
             hiddenCards.get(i).GetInfo();
         }
+        System.out.println("######## Player Info End ########");
+        System.out.println();
+        System.out.println();
     }
 }

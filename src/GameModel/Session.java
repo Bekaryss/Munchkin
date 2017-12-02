@@ -10,6 +10,7 @@ import java.util.Stack;
 public class Session {
     public int id;
     public int Iteration;
+    public int GameCycle = 0;
     public boolean GameStatus = false;
     public ArrayList<PlayerController> Players;
     public PlayerController currentPlayer;
@@ -42,7 +43,7 @@ public class Session {
 
     public void AddPlayer(PlayerController player)
     {
-        player.AddVisibleCard(new Gear("Some title", "Somedescroption", 5));
+        player.AddVisibleCard(new Gear("Knife", "Small knife", 4));
         Players.add(player);
     }
     public void RemovePlayer(PlayerController player)
@@ -61,23 +62,36 @@ public class Session {
     }
 
     public void AddDoor(){
-        doors.push(new Monster("Nurba Dragon", "Mda", 1));
-        doors.push(new Monster("Alikhan Dragon", "Mda", 2));
-        doors.push(new Monster("Beka Dragon", "Mda", 1));
-        doors.push(new Monster("Aslan Pig", "Mda", 3));
-        doors.push(new Monster("Vasilisk", "Mda", 2));
-        doors.push(new Monster("Dragon", "Mda", 5));
-        doors.push(new Monster("Wiverna", "Mda", 6));
+        doors.push(new Monster("Chupacabra", "The chupacabra is thought to be a large", 12));
+        doors.push(new Monster("Nessie", "The Loch Ness monster", 7));
+        doors.push(new Monster("Jersey devil", "Regional monster", 8));
+        doors.push(new Monster("Headless Horseman", "The Legend of Sleepy Hollow", 8));
+        doors.push(new Monster("Vasilisk", "Sneck", 9));
+        doors.push(new Monster("Dragon", "Large dragon with fire breath", 11));
+        doors.push(new Monster("Wiverna", "Very dangerous", 15));
+        doors.push(new Monster("Cerberus", "Three-headed dog", 6));
+        doors.push(new Monster("Gorgons", "Perhaps the most well-known monsters of Greek mythology.", 8));
+        doors.push(new Monster("Chimera", "Snake, with its head as the tip.", 5));
+        doors.push(new Monster("Typhon", "The big daddy of mythological", 4));
     }
 
     public void AddTreasure(){
-        treasures.push(new Gear("Armor Gear", "Give", 3));
-        treasures.push(new Buff("Bonus Armor", "Give armor", 2));
-        treasures.push(new Gear("Sword Gear", "Give", 6));
-        treasures.push(new Buff("Bow", "Give", 1));
-        treasures.push(new Gear("Hammer Gear", "Give", 5));
-        treasures.push(new Buff("Knife", "Give", 4));
-        treasures.push(new Gear("Katana Gear", "Give", 10));
+        treasures.push(new Gear("Armor Gear", "Gear", 3));
+        treasures.push(new Gear("Sword Gear", "Gear", 4));
+        treasures.push(new Gear("Hammer Gear", "Gear", 2));
+        treasures.push(new Gear("Arming Swords", "Gear", 5));
+        treasures.push(new Gear("Broad Swords", "Gear", 2));
+        treasures.push(new Gear("Falchions", "Gear", 1));
+        treasures.push(new Gear("Long Sword", "Gear", 3));
+        treasures.push(new Gear("Rondels", "Gear", 6));
+        treasures.push(new Gear("Viking sword", "Gear", 3));
+        treasures.push(new Gear("Backsword ", "Gear", 4));
+        treasures.push(new Gear("Billhook", "Gear", 2));
+        treasures.push(new Gear("Cutlass", "Gear", 5));
+        treasures.push(new Gear("Falcata", "Gear", 2));
+        treasures.push(new Gear("Katzbalger", "Gear", 1));
+        treasures.push(new Gear("Kilidsch", "Gear", 3));
+        treasures.push(new Gear("Kopis", "Gear", 6));
     }
 
     public void setCurrentPlayer(PlayerController currentPlayer) {
@@ -90,8 +104,10 @@ public class Session {
         closeDoors.push(openedDoor);
     }
 
-    public void GetTreasure(){
-        currentPlayer.AddHiddenCard(treasures.pop());
+    public Gear GetTreasure(){
+        Gear g = (Gear) treasures.pop();
+        currentPlayer.AddVisibleCard(g);
+        return g;
     }
 
     public void fightWithMonster(){
@@ -102,33 +118,44 @@ public class Session {
             pLevel++;
             currentPlayer.setLevel(pLevel);
             System.out.println("Player Win");
+            if(pLevel == 10){
+                GameStatus = false;
+            }
+            System.out.println("And you get Gear: ");
+            Gear g = GetTreasure();
+            System.out.println(g.getTitle());
         }
         else{
             int pLevel = currentPlayer.getLevel();
             if(pLevel>1){
                 pLevel--;
             }
-
             currentPlayer.setLevel(pLevel);
             System.out.println("Monster Win");
         }
+        closeDoors.push(openedDoor);
+        openedDoor = null;
     }
 
     public boolean RunFromMonster(){
         Random random = new Random();
         if(random.nextInt(6 - 1 + 1) + 1 > 3){
+            closeDoors.push(openedDoor);
+            openedDoor = null;
             return true;
         }else{
             int pLevel = currentPlayer.getLevel();
             if(pLevel > 1){
                 pLevel--;
             }
+            closeDoors.push(openedDoor);
+            openedDoor = null;
             currentPlayer.setLevel(pLevel);
             return false;
         }
     }
 
-    public void OpenTreasre(Buff buff){
+    public void OpenTreasure(Buff buff){
         currentPlayer.setBonus(buff.Bonus);
         currentPlayer.RemoveHiddenCard(buff);
     }
@@ -141,6 +168,7 @@ public class Session {
             Iteration = 0;
         }
         openedDoor = null;
+        GameCycle++;
     }
 
     public SessionInfo UpdateData(){
@@ -148,6 +176,8 @@ public class Session {
         sf.id = id;
         sf.Iteration = Iteration;
         sf.GameStatus = GameStatus;
+        sf.GameCycle = GameCycle;
+
         for (int i=0; i<doors.size(); i++){
             sf.doors.push(((Monster)doors.get(i)).UpdataData());
         }

@@ -18,6 +18,7 @@ public class SessionInfo {
     public Stack<CardInfo> closeDoors = new Stack<>();
     public Stack<CardInfo> treasures = new Stack<>();
     public CardInfo openedDoor;
+    public int GameCycle;
 
     public int getId() {
         return id;
@@ -93,14 +94,15 @@ public class SessionInfo {
 
     public void GetInfo(){
         System.out.println("$$$$$$$$$$$$$$$$$ Session $$$$$$$$$$$$$$$$$$$$$$");
-        System.out.println("Id: " + id + " " +"Iteration: " + Iteration + " " + "GameStatus: " + GameStatus);
-        System.out.println("Doors: " );
+        System.out.println("Id: " + id + " " +"Iteration: " + Iteration + " " + "GameStatus: " + GameStatus + " " + "GameCycle: " + GameCycle);
+ //       System.out.println("Doors: " );
 //        for (int i=0; i<doors.size(); i++){
 //            doors.get(i).GetInfo();
 //        }
-        System.out.println("Opened Door: ");
-        if(openedDoor != null)
+        if(openedDoor != null){
+            System.out.println("Opened Door: ");
             openedDoor.GetInfo();
+        }
         if(currentPlayer!= null){
             System.out.println("Current Player: ");
             currentPlayer.GetInfo();
@@ -109,5 +111,10 @@ public class SessionInfo {
         for (int i=0; i<Players.size(); i++){
             Players.get(i).GetInfo();
         }
+    }
+
+    public void GetSmallInfo(){
+        System.out.println("$$ Session ---> " + id);
+        System.out.println("Iteration: " + Iteration + " " + "GameStatus: " + GameStatus + ", // Players count: " + Players.size() + " GameCycle: " + GameCycle);
     }
 }

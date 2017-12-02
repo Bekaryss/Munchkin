@@ -56,15 +56,15 @@ public class CardInfo {
         Type = type;
     }
     public void GetInfo(){
-        System.out.println("************** Card ****************");
-        System.out.println("* Id: " + Id + " " + "Title: " + Title );
-        System.out.println("* Description: " + Description);
-        System.out.println("* Type: " + Type + " *");
+        System.out.println("  ************** Card ****************");
+        System.out.println("  * Id: " + Id + " " + "Title: " + Title );
+        System.out.println("  * Description: " + Description);
+        System.out.println("  * Type: " + Type + " *");
         if(Type == "Monster"){
-            System.out.println("* Level: " + Level);
+            System.out.println("  * Level: " + Level);
         }else if (Type == "Treasure"){
-            System.out.println("* Bonus: " + Bonus);
+            System.out.println("  * Bonus: " + Bonus);
         }
-        System.out.println("************** End ****************");
+        System.out.println("  ************** End ****************");
     }
 }
